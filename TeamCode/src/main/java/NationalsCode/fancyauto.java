@@ -82,10 +82,10 @@ public class fancyauto extends LinearOpMode {
             steering = angles.firstAngle / 46;
             RoboAngle = angles.firstAngle;
             // Put run blocks here.
-            RF.setDirection(DcMotor.Direction.REVERSE);
-            RB.setDirection(DcMotor.Direction.REVERSE);
-            LB.setDirection(DcMotor.Direction.FORWARD);
-            LF.setDirection(DcMotor.Direction.FORWARD);
+            RF.setDirection(DcMotor.Direction.FORWARD);
+            RB.setDirection(DcMotor.Direction.FORWARD);
+            LB.setDirection(DcMotor.Direction.REVERSE);
+            LF.setDirection(DcMotor.Direction.REVERSE);
             Ticks_per_cm = 537.7 / (10.4 * Math.PI);
 
             Upster.setMode(DcMotor.RunMode.RUN_USING_ENCODER);

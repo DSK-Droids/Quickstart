@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+package NationalsCode;
 
 import com.qualcomm.hardware.rev.RevTouchSensor;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -7,8 +7,8 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@TeleOp(name="IHOPEITDRIVES", group="Linear Opmode")
-public class DRIVE_PLS extends LinearOpMode {
+@TeleOp(name="IKNOWITDRIVES", group="Linear Opmode")
+public class IKNOWITDRIVES extends LinearOpMode {
 
     private ElapsedTime runtime = new ElapsedTime();
     private DcMotor LFDrive;
@@ -105,7 +105,7 @@ public class DRIVE_PLS extends LinearOpMode {
 
                 Upster.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
                 Upster.setTargetPosition(-800);
-                Upster.setPower(-1);
+                Upster.setPower(-0.5);
             } else if (UpGoDown && UpsterPos < -5) {
 
                 Upster.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -152,15 +152,15 @@ public class DRIVE_PLS extends LinearOpMode {
                 Extendo.setPower(0);
             }
 
-            if (gamepad2.dpad_left) {
+            if (gamepad1.dpad_left) {
                 Dumpster.setPosition(1);
-            } else if (gamepad2.dpad_right) {
+            } else if (gamepad1.dpad_right) {
                 Dumpster.setPosition(0);
             }
 
-            if (gamepad2.x) {
+            if (gamepad1.x) {
                 Gripster2.setPosition(0.75);
-            } else if (gamepad2.b) {
+            } else if (gamepad1.b) {
                 Gripster2.setPosition(0.95);
             }
 
@@ -259,10 +259,10 @@ public class DRIVE_PLS extends LinearOpMode {
             double RSX = gamepad1.right_stick_x;
             double powerScale = Math.max(1.0, (Math.abs(LSY) + Math.abs(LSX) + Math.abs(RSX)));
 
-            double LFPower = ((-LSY) + (-RSX) + (LSX)) / powerScale;
-            double RFPower = ((-LSY) + (RSX) + (-LSX)) / powerScale;
-            double LBPower = ((-LSY) + (-RSX) + (-LSX)) / powerScale;
-            double RBPower = ((-LSY) + (RSX) + (LSX)) / powerScale;
+            double LFPower = ((LSY) + (-RSX) + (-LSX)) / powerScale;
+            double RFPower = ((LSY) + (RSX) + (LSX)) / powerScale;
+            double LBPower = ((LSY) + (-RSX) + (LSX)) / powerScale;
+            double RBPower = ((LSY) + (RSX) + (-LSX)) / powerScale;
 
             LFDrive.setPower(LFPower * (TransparentPower));
             RFDrive.setPower(RFPower * (TransparentPower));
