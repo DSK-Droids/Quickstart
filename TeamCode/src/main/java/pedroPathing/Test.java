@@ -19,7 +19,7 @@ import com.pedropathing.util.Constants;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.robocol.Command;
-import com.pedropathing.commands.FollowPath;
+import com.pedropathing.commands.FollowPath; //Not importing
 
 import pedroPathing.constants.FConstants;
 import pedroPathing.constants.LConstants;
@@ -35,9 +35,7 @@ public class Test extends LinearOpMode {
     /**
      * Starting Position of our robot
      */
-    private final Pose startPose = new Pose(10, 105, Math.toRadians(-90));
 
-    private final Pose scorePreloadPose = new Pose(19, 124, Math.toRadians(-45));
 
     private Path scorePreload;
 
