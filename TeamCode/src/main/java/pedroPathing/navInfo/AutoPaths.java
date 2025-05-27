@@ -10,20 +10,28 @@ import com.pedropathing.pathgen.PathChain;
 import com.pedropathing.pathgen.Point;
 import com.pedropathing.util.Constants;
 import com.pedropathing.util.Timer;
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+/*
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import  com.qualcomm.robotcore.eventloop.opmode.OpMode;
-
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.hardware.rev.RevTouchSensor;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.util.ElapsedTime;
+ */
 import pedroPathing.constants.FConstants;
 import pedroPathing.constants.LConstants;
 
-private Follower follower;
-private Timer pathTimer, actionTimer, opmodeTimer;
-private Path scorePreload, park;
-private PathChain grabPickup1, grabPickup2, grabPickup3, scorePickup1, scorePickup2, scorePickup3;
 
-private int pathState;
 
-public class AutoPath {
+public class AutoPaths extends OpMode {
+    private Follower follower;
+    private Timer pathTimer, actionTimer, opmodeTimer;
+    private Path scorePreload, park;
+    private PathChain grabPickup1, grabPickup2, grabPickup3, scorePickup1, scorePickup2, scorePickup3;
+
+    private int pathState;
     @Override
     public void init() {
         pathTimer = new Timer();
@@ -61,7 +69,7 @@ public class AutoPath {
 
         scorePickup1 = follower.pathBuilder()
                 .addPath(new BezierLine(new Point(collect1Pose), new Point(scorePose)))
-                .setLinearHeadingInterpolation(pickup1Pose.getHeading(), scorePose.getHeading())
+                .setLinearHeadingInterpolation(collect1Pose.getHeading(), scorePose.getHeading())
                 .build();
 
         grabPickup2 = follower.pathBuilder()
@@ -149,6 +157,10 @@ public class AutoPath {
                 }
                 break;
         }
+    }
+    public void setPathState(int pState) {
+        pathState = pState;
+        pathTimer.resetTimer();
     }
 
 }
