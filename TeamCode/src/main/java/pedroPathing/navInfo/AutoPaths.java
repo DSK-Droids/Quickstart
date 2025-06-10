@@ -10,6 +10,7 @@ import com.pedropathing.pathgen.PathChain;
 import com.pedropathing.pathgen.Point;
 import com.pedropathing.util.Constants;
 import com.pedropathing.util.Timer;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 /*
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
@@ -24,12 +25,13 @@ import pedroPathing.constants.FConstants;
 import pedroPathing.constants.LConstants;
 
 
+@Autonomous(name = "PedroTest IntoTheDeep")
 
 public class AutoPaths extends OpMode {
     private Follower follower;
     private Timer pathTimer, actionTimer, opmodeTimer;
-    private Path scorePreload, park;
-    private PathChain grabPickup1, grabPickup2, grabPickup3, scorePickup1, scorePickup2, scorePickup3;
+    private Path scorePreload;
+    private PathChain grabPickup1, grabPickup2, grabPickup3, scorePickup1, scorePickup2, scorePickup3, park;
 
     private int pathState;
     @Override
@@ -52,11 +54,13 @@ public class AutoPaths extends OpMode {
     private final Pose startPose = new Pose(9, 111, Math.toRadians(-90));
     private final Pose scorePose = new Pose(18, 126, Math.toRadians(-45));
 
-    private final Pose collect1Pose = new Pose(26, 121, Math.toRadians(0));
+    private final Pose collect1Pose = new Pose(26, 120, Math.toRadians(0));
 
-    private final Pose collect2Pose = new Pose(26, 131, Math.toRadians(0));
+    private final Pose collect2Pose = new Pose(26, 125, Math.toRadians(0));
 
-    private final Pose collect3Pose = new Pose(26, 141, Math.toRadians(0));
+    private final Pose collect3Pose = new Pose(26, 130, Math.toRadians(0));
+
+    private final Pose parkPose = new Pose(9, 50, Math.toRadians(45));
     public static PathBuilder builder = new PathBuilder();
 
     public void buildPaths() {
@@ -91,6 +95,12 @@ public class AutoPaths extends OpMode {
                 .addPath(new BezierLine(new Point(collect3Pose), new Point(scorePose)))
                 .setLinearHeadingInterpolation(collect3Pose.getHeading(), scorePose.getHeading())
                 .build();
+
+        park = follower.pathBuilder()
+                .addPath(new BezierLine(new Point(scorePose), new Point(parkPose)))
+                .setLinearHeadingInterpolation(scorePose.getHeading(), parkPose.getHeading())
+                .build();
+
 
         // Curved path for parking
     }
