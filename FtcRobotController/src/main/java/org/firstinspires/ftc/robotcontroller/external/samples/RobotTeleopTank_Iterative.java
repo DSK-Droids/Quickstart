@@ -109,6 +109,7 @@ public class RobotTeleopTank_Iterative extends OpMode{
      */
     @Override
     public void start() {
+
     }
 
     /*
@@ -125,7 +126,6 @@ public class RobotTeleopTank_Iterative extends OpMode{
 
         leftDrive.setPower(left);
         rightDrive.setPower(right);
-
         // Use gamepad left & right Bumpers to open and close the claw
         if (gamepad1.right_bumper)
             clawOffset += CLAW_SPEED;
