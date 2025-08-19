@@ -49,6 +49,8 @@ public class huskytest extends LinearOpMode {
     private int widthGoal = 100;
     private int heightGoal = widthGoal/2;
 
+    private int tol = 10;
+
     private HuskyLens huskyLens;
 
     @Override
@@ -91,31 +93,32 @@ public class huskytest extends LinearOpMode {
                  *
                  * These values have Java type int (integer).
                  */
+
             }
-            if (blocks[0].x==xGoal){
+            if (blocks[0].x >= xGoal-tol && blocks[0].x <= xGoal+tol){
                 telemetry.addData("In Position",1);
             }
-            else if(blocks[0].x<xGoal){
+            else if(blocks[0].x < xGoal){
                 telemetry.addData("Look Up",1);
             }
             else if(blocks[0].x > xGoal){
                 telemetry.addData("Look Down",1);
             }
 
-            if (blocks[0].y==yGoal){
+            if (blocks[0].y >= yGoal-tol && blocks[0].y <= yGoal+tol){
                 telemetry.addData("In Position",1);
             }
-            else if(blocks[0].y<yGoal){
+            else if(blocks[0].y < yGoal){
                 telemetry.addData("Move Right",1);
             }
             else if(blocks[0].y > yGoal){
                 telemetry.addData("Move Left",1);
             }
 
-            if (blocks[0].width==widthGoal){
+            if (blocks[0].width >= widthGoal-tol && blocks[0].width <= widthGoal+tol){
                 telemetry.addData("In Position",1);
             }
-            else if(blocks[0].width<widthGoal){
+            else if(blocks[0].width < widthGoal){
                 telemetry.addData("Move Closer",1);
             }
             else if(blocks[0].width > widthGoal){
