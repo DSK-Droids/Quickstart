@@ -144,6 +144,7 @@ public class ExampleBucketAuto extends OpMode {
         switch (pathState) {
             case 0:
                 follower.followPath(scorePreload);
+                //Here you stick the code to move the arms to drop the game piece in the bucket
                 setPathState(1);
                 break;
             case 1:

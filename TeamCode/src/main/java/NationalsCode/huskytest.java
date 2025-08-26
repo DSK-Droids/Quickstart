@@ -44,7 +44,7 @@ import java.util.concurrent.TimeUnit;
 public class huskytest extends LinearOpMode {
 
     private final int READ_PERIOD = 1;
-    private int xGoal = 64;
+    private int xGoal = 165;
     private int yGoal = 128;
     private int widthGoal = 100;
     private int heightGoal = widthGoal/2;
@@ -70,7 +70,8 @@ public class huskytest extends LinearOpMode {
 
 
         huskyLens.selectAlgorithm(HuskyLens.Algorithm.COLOR_RECOGNITION);
-
+        int goalID = 1;
+        int blockToRead=10;
         telemetry.update();
         waitForStart();
 
@@ -79,51 +80,64 @@ public class huskytest extends LinearOpMode {
                 continue;
             }
             rateLimit.reset();
-
+            if(gamepad1.left_bumper){
+                goalID--;
+            } else if (gamepad1.right_bumper) {
+                goalID++;
+            }
+            telemetry.addData("Goal ID: ", goalID);
             HuskyLens.Block[] blocks = huskyLens.blocks();
             telemetry.addData("Block count", blocks.length);
-            for (int i = 0; i < blocks.length; i++) {
-                telemetry.addData("Block", blocks[i].toString());
-                /*
-                 * Here inside the FOR loop, you could save or evaluate specific info for the currently recognized Bounding Box:
-                 * - blocks[i].width and blocks[i].height   (size of box, in pixels)
-                 * - blocks[i].left and blocks[i].top       (edges of box)
-                 * - blocks[i].x and blocks[i].y            (center location)
-                 * - blocks[i].id                           (Color ID)
-                 *
-                 * These values have Java type int (integer).
-                 */
+            if(blocks.length>0){
+                for (int i = 0; i < blocks.length; i++) {
+                    if(blocks[i].id==goalID){
+                        telemetry.addData("Block", blocks[i].toString());
+                        blockToRead=i;
+                    }
+                    /*
+                     * Here inside the FOR loop, you could save or evaluate specific info for the currently recognized Bounding Box:
+                     * - blocks[i].width and blocks[i].height   (size of box, in pixels)
+                     * - blocks[i].left and blocks[i].top       (edges of box)
+                     * - blocks[i].x and blocks[i].y            (center location)
+                     * - blocks[i].id                           (Color ID)
+                     *
+                     * These values have Java type int (integer).
+                     */
 
-            }
-            if (blocks[0].x >= xGoal-tol && blocks[0].x <= xGoal+tol){
-                telemetry.addData("In Position",1);
-            }
-            else if(blocks[0].x < xGoal){
-                telemetry.addData("Look Up",1);
-            }
-            else if(blocks[0].x > xGoal){
-                telemetry.addData("Look Down",1);
+                }
+                if (blocks[blockToRead].x >= xGoal-tol && blocks[blockToRead].x <= xGoal+tol){
+                    telemetry.addData("In Position",1);
+                }
+                else if(blocks[blockToRead].x < xGoal){
+                    telemetry.addData("Look Down",1);
+                }
+                else if(blocks[blockToRead].x > xGoal){
+                    telemetry.addData("Look Up",1);
+                }
+
+                if (blocks[blockToRead].y >= yGoal-tol && blocks[blockToRead].y <= yGoal+tol){
+                    telemetry.addData("In Position",1);
+                }
+                else if(blocks[blockToRead].y < yGoal){
+                    telemetry.addData("Move Right",1);
+                }
+                else if(blocks[blockToRead].y > yGoal){
+                    telemetry.addData("Move Left",1);
+                }
+
+                if (blocks[blockToRead].width >= widthGoal-tol && blocks[0].width <= widthGoal+tol){
+                    telemetry.addData("In Position",1);
+                }
+                else if(blocks[blockToRead].width < widthGoal){
+                    telemetry.addData("Move Closer",1);
+                }
+                else if(blocks[blockToRead].width > widthGoal){
+                    telemetry.addData("Move Away",1);
+                }
+                blockToRead=0;
             }
 
-            if (blocks[0].y >= yGoal-tol && blocks[0].y <= yGoal+tol){
-                telemetry.addData("In Position",1);
-            }
-            else if(blocks[0].y < yGoal){
-                telemetry.addData("Move Right",1);
-            }
-            else if(blocks[0].y > yGoal){
-                telemetry.addData("Move Left",1);
-            }
 
-            if (blocks[0].width >= widthGoal-tol && blocks[0].width <= widthGoal+tol){
-                telemetry.addData("In Position",1);
-            }
-            else if(blocks[0].width < widthGoal){
-                telemetry.addData("Move Closer",1);
-            }
-            else if(blocks[0].width > widthGoal){
-                telemetry.addData("Move Away",1);
-            }
             telemetry.update();
         }
     }
